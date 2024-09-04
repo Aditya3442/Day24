@@ -1,0 +1,32 @@
+class Solution {
+    public int[] sortJumbled(int[] mapping, int[] nums) {
+        
+        int n=nums.length;
+        int[][] arr=new int[n][2];
+        int index=0;
+        
+        for(int i=0;i<n;i++){
+            int num=nums[i];
+            String s=Integer.toString(num);
+            StringBuilder str=new StringBuilder(s);
+            StringBuilder sb=new StringBuilder();
+            for(int j=0;j<s.length();j++){
+                sb.append(Integer.toString(mapping[str.charAt(j)-'0']));
+            }
+            arr[index][0]=nums[i];
+            arr[index][1]=Integer.parseInt(sb.toString());
+            index++;
+        }
+        
+        Arrays.sort(arr,new Comparator<int[]>(){
+            public int compare(int[] a,int[] b){
+                return a[1]-b[1];
+            }
+        });
+        for(int i=0;i<n;i++){
+            nums[i]=arr[i][0];
+        }
+        
+        return nums;
+    }
+}
